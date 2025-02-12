@@ -1,0 +1,24 @@
+
+\section{General Stuff}
+
+%MARK: Asymptotic Notation
+\subsection{Asymptotic Notation}
+
+The set of functions that asymptotically grow not faster than \( g \left( n \right) \) are:
+\begin{equation*}
+    \mathcal{O} \left( g \left( n \right) \right) = \{ 
+    f: \mathbb{N} \rightarrow \mathbb{R}^+ \mid \exists c, n_0 \in \mathbb{R}^+ \text{ such that } \forall n \geq n_0: \bm{f(n) \leq c \cdot g(n)  }
+    \} 
+\end{equation*}
+\\
+The set of functions that asymptotically grow not slower than \( g \left( n \right) \) are:
+\begin{equation*}
+    \Omega \left( g \left( n \right) \right) = \{
+    f: \mathbb{N} \rightarrow \mathbb{R}^+ \mid \exists c, n_0 \in \mathbb{R}^+ \text{ such that } \forall n \geq n_0: \bm{f(n) \geq c \cdot g(n)}
+    \}
+\end{equation*}
+\\
+The set of functions that asymptotically grow at the same rate as \( g \left( n \right) \) are:
+\begin{equation*}
+    \Theta \left( g \left( n \right) \right) =  \mathcal{O} \left( g \left( n \right) \right) \cap  \Omega \left( g \left( n \right) \right) 
+\end{equation*}

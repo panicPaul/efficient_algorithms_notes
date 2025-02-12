@@ -4,12 +4,90 @@
 
 Let \( a \geq 1 \), \( b > 1 \), \( \epsilon > 0 \) then
 
-\begin{equation}
+\begin{equation*}
     T(n) = a T \left( \frac{n}{b} \right) + f(n)
-\end{equation}
+\end{equation*}
 then:
 \begin{itemize}
-    \item  If \( f(n) = \mathcal{O} \left( n^{\log_b (a) - \epsilon} \right) \) then \( T(n) = \Theta \left( n^{\log_b a} \right) \)
-    \item If \( f(n) = \Theta \left( n^{\log_b a \log^k n} \right) \) then \( T(n) = \Theta \left( n^{\log_b a} \log^{k+1} n \right) \)
-    \item If \( f(n) = \Omega \left( n^{\log_b (a) + \epsilon} \right) \) and \( a f \left( \frac{n}{b} \right) \leq c f(n) \) for some \( c < 1 \) and sufficiently large \( n \) then \( T(n) = \Theta \left( f \left(n \right) \right) \)
+    \item  If \( f(n) = \mathcal{O} \left( n^{\log_b (a) \bm{ - \epsilon}} \right) \) then \( T(n) = \Theta \left( n^{\log_b a} \right) \)
+    \item If \( f(n) = \Theta \left( n^{\log_b (a) \cdot \bm{\log^k n}} \right) \) then \( T(n) = \Theta \left( n^{\log_b a} \log^{k+1} n \right) \)
+    \item If \( f(n) = \Omega \left( n^{\log_b (a) 
+ \bm{+ \epsilon}} \right) \) and \( a f \left( \frac{n}{b} \right) \leq c f(n) \) for some \( c < 1 \) and sufficiently large \( n \) then \( T(n) = \Theta \left( f \left(n \right) \right) \)
 \end{itemize}
+
+%MARK: Proof by induction
+\subsection{Proof by Induction for Recursion}
+To show that \(f \left( n \right)  = \Theta \left( g \left( n \right) \right) \) we perform the following algorithm: 
+\begin{itemize}
+    \item Guess that \( f \left( n \right) = \mathcal{O} \left( g \left( n \right) \right) \) and \( f \left( n \right) = \Omega \left( g \left( n \right) \right) \)
+    \item Prove that \( f \left( n \right) = \mathcal{O} \left( g \left( n \right) \right) \) and \( f \left( n \right) = \Omega \left( g \left( n \right) \right) \) by induction
+    \item The inductive hypothesis is that \( T \left( n \right) = \mathcal{O} \left( g \left( n \right)  \right) \), i.e. \( T \left( n \right) \leq c \cdot g \left( n \right)\)  for some constant \( c \)  and sufficiently large \( n \)
+    \item Analogously for \( \Omega \left( g \left( n \right) \right) \)
+\end{itemize}
+
+%MARK: Characteristic Polynomial
+\subsection{Linear Homogeneous Recurrence Relations}
+Given the recursion \( a_n = \sum_{i=1}^{k} c_i a_{n-i} \) we can solve it by finding the characteristic polynomial \( p(x) = x^k - \sum_{i=1}^{k} c_i x^{k-i} \) and then solving it for the roots \( x_1, x_2, \ldots, x_k \). The general solution is then \( a_n = \sum_{i=1}^{k} \alpha_i x_i^n \) where the \( \alpha_i \) are determined by the initial conditions.
+For roots \( x_i \) with multiplicity \( m_i \) we have to include terms of the form \( n^j x_i^n \) for \( j = 0, 1, \ldots, m_i - 1 \) in the general solution.
+Example:
+\begin{align*}
+    a_n &= 3 a_{n-2} - 2 a_{n-3} \\
+    \mathcal{X}(\lambda) &= \lambda^3 - 3 \lambda + 2 \\
+    &= (\lambda + 1)(\lambda + 1)(\lambda - 2) 
+\end{align*}
+With the initial conditions \( a_0 = 3, a_1 = 2, a_2 = 1 \) we get:
+\begin{align*}
+    a_n &= \alpha \left( -1 \right)^{n} + n \cdot \beta \left( -1 \right)^{n} + \gamma 2^{n} \\
+\end{align*}
+Solving for the constants:
+\begin{align*}
+     \alpha + 0 + \gamma &= 3 &\Rightarrow \alpha = 3 - \gamma \\
+     -\alpha - \beta + 2 \gamma &= 2 &\Rightarrow \beta = 3 \gamma - 5 \\
+     \alpha + 2 \beta + 4 \gamma &= 11 &\Rightarrow \gamma = 2 \\
+\end{align*}
+And therefore the solution is:
+\begin{align*}
+    a_n &= \left( -1 \right)^{n} + n \left( -1 \right)^{n} + 2 \cdot 2^n \\
+    &= \left( -1 \right)^{n} \left( 1 + n \right) + 2^{n+1}
+\end{align*}
+
+\subsection{Inhomogeneous Recurrence Relations}
+Given the recursion \( a_n = \sum_{i=1}^{k} c_i a_{n-i} + f(n) \) we can solve it by transforming it into a homogeneous recursion. To do this we iteratively substitute the recursion into itself until we get a homogeneous recursion. For example:
+\begin{align*}
+    a_n &= a_{n-1} + n^2 \\
+    a_{n-1} &= a_{n-2} + \left( n - 1 \right)^2 = a_{n-2} + n^2 - 2n + 1 \\
+\end{align*}
+Adding and subtracting the two equations we get:
+\begin{align*}
+    a_n &= 2 a_{n-1} + n^2 - a_{n-1} \\
+    &= 2 a_{n-1} + n^2 - \left( a_{n-2}  + n^2  - 2n + 1 \right) \\
+    &= 2 a_{n-1} - a_{n-2} + 2n - 1
+\end{align*}
+Similarly for \( a_{n-1} \)  
+\begin{align*}
+    a_{n-1} &= a_{n-2} + \left( n - 1 \right)^2 \\
+    &= a_{n-2} + n^2 - 2n + 1 \\
+    a_{n-2} &= a_{n-3} + \left( n - 2 \right)^2 \\
+    &= a_{n-3} + n^2 - 4n + 4 \\
+    a_{n-1} &= 2 a_{n-2} + \left( n^2 - 2n + 1 \right) - \left( a_{n-3} + n^2 - 4n + 4 \right) \\
+    &= 2 a_{n-2} - a_{n-3} + 2n - 3
+\end{align*}
+And going back to the original equation:
+\begin{align*}
+    a_n &= 3 a_{n-1} - a_{n-2} + 2n - 1 - \left( 2a_{n-2} - a_{n-3} + 2n - 3 \right) \\
+    &= 3 a_{n-1} - 3 a_{n-2} + a_{n-3} + 2
+\end{align*}
+We have to repeat this process until we get a homogeneous equation.
+\begin{equation*}
+    a_{n-1} = 3 a_{n-2} - 3 a_{n-3} + a_{n-4} + 2
+\end{equation*}
+And finally:
+\begin{align*}
+    a_n &= 4 a_{n-1} - 3 a_{n-2} + a_{n-3} + 2 - a_{n-1}\\
+     &= 4 a_{n-1} - 3 a_{n-2} + a_{n-3} + 2 - \left( 3 a_{n-2} - 3 a_{n-3} + a_{n-4} + 2 \right) \\
+    &= 4 a_{n-1} - 6 a_{n-2} + 4 a_{n-3} - a_{n-4}
+\end{align*}
+
+
+%MARK: Generating Functions
+\subsection{Generating Functions}
