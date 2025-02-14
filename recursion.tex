@@ -91,3 +91,36 @@ And finally:
 
 %MARK: Generating Functions
 \subsection{Generating Functions}
+A generating function is a formal power series that encodes the sequence of coefficients of a sequence. For example the generating function of the Fibonacci sequence \( a_n = a_{n-1} + a_{n-2} \) is:
+\begin{equation*}
+    A(z) = \sum_{n=0}^{\infty} a_n z^n = \frac{z}{1 - z - z^2}
+\end{equation*}
+where the coefficients of the series are the Fibonacci numbers.
+
+We can solve recursion equations with generating functions by performing algebraic operations on the generating functions. For example:
+\begin{align*}
+    a_n &= a_{n-1} + 2^{n-1} \text{ with } a_0 = 2 \\
+    A(z) &= \sum_{n=0}^{\infty} a_n z^n \\
+    &= a_0 + \sum_{n=1}^{\infty} a_n z^n \\
+    &= 2 + \sum_{n=1}^{\infty} \left( a_{n-1} + 2^{n-1} \right) z^n \\
+    &= 2 + \sum_{n=1}^{\infty} a_{n-1} z^n + \sum_{n=1}^{\infty} 2^{n-1} z^n \\
+    &= 2 + z\sum_{n=1}^{\infty} a_{n-1} z^{n-1} + z\sum_{n=1}^{\infty} 2^{n-1} z^{n-1} \\
+    &= 2 + z\sum_{n=0}^{\infty} a_n z^n + z\sum_{n=0}^{\infty} 2^n z^n \\
+    &= 2 + zA(z) + z\sum_{n=0}^{\infty} 2^n z^n \\
+\end{align*}
+And therefore \( (1 + z) A(z) = 2 + z \sum_{n=0}^{\infty} 2^n z^n \), which we can solve for \( A(z) \):
+\begin{align*}
+    (1 + z) A(z) &= 2 + z \sum_{n=0}^{\infty} \left( 2z \right)^n \\
+    &= 2 + z \frac{1}{1 - 2z} \\
+    &= \frac{2 - 3z}{1 - 2z} 
+\end{align*}
+And therefore:
+\begin{align*}
+    A(z) &= \frac{2 - 3z}{(1 - z)(1 - 2z)} \\
+    &= \frac{(1 - z) + (1 - 2z)}{(1 - z)(1 - 2z)} \\
+    &= \frac{1}{1 - z} + \frac{1}{1 - 2z} \\
+    &= \sum_{n=0}^{\infty} z^n + \sum_{n=0}^{\infty} 2^n z^n \\
+    &= \sum_{n=0}^{\infty} \left( 1 + 2^n \right) z^n
+\end{align*}
+And therefore \( a_n = 1 + 2^n \).
+

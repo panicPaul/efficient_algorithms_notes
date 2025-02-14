@@ -1,5 +1,5 @@
 
-\section{General Stuff}
+\section{General Theory}
 
 %MARK: Asymptotic Notation
 \subsection{Asymptotic Notation}
@@ -21,4 +21,22 @@ The set of functions that asymptotically grow not slower than \( g \left( n \rig
 The set of functions that asymptotically grow at the same rate as \( g \left( n \right) \) are:
 \begin{equation*}
     \Theta \left( g \left( n \right) \right) =  \mathcal{O} \left( g \left( n \right) \right) \cap  \Omega \left( g \left( n \right) \right) 
+\end{equation*}
+
+\subsection{Power Series}
+The geometric series is defined as:
+\begin{equation*}
+    \sum_{i=0}^{\infty} x^i = \frac{1}{1-x} \text{ for } |x| < 1
+\end{equation*}
+For any constant \( c \) we have:
+\begin{equation*}
+    \sum_{i=0}^{\infty} (c \cdot x)^i = \frac{1}{1-c \cdot x} \text{ for } |c \cdot x| < 1
+\end{equation*}
+The exponential function is defined as:
+\begin{equation*}
+    e^x = \sum_{i=0}^{\infty} \frac{x^i}{i!}
+\end{equation*}
+And for a constant \( c \) we have:
+\begin{equation*}
+    e^{c \cdot x} = \sum_{i=0}^{\infty} \frac{(c \cdot x)^i}{i!}
 \end{equation*}

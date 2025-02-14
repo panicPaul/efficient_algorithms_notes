@@ -1,0 +1,243 @@
+\section{Data Structures}
+%MARK: Binary Search Tree
+\subsection{Binary Search Tree}
+A binary search tree is a binary tree where each node has a key and the keys are ordered such that for each node, all keys in the left subtree are less than the key of the node and all keys in the right subtree are greater than the key of the node. 
+
+\begin{algorithm}
+    \floatname{algorithm}{Biary Search Tree}
+    \caption{\textsc{Tree-Search(x, k)}: Go left if the key is less than the current node, go right if the key is greater than the current node. The average case time complexity is \( \mathcal{O}(\log n) \) and the worst case time complexity is \( \mathcal{O}(n) \).}
+    \begin{algorithmic}
+        \If{ x = NULL or  k = \text{key}[x]  }
+            \State\Return{ x }
+        \EndIf{}
+        \If{  k < key[x]  }
+            \State\Return{ \Call{Tree-Search}{left[x], k} }
+        \Else{}
+            \State\Return{ \Call{Tree-Search}{right[x], k} }
+        \EndIf{}
+    \end{algorithmic}
+\end{algorithm}
+    
+\begin{algorithm}
+    \floatname{algorithm}{Biary Search Tree}
+    \caption{\textsc{TreeMin(x)}: Go left until you reach the leftmost node. The time complexity is \( \mathcal{O}(\log n) \) with a worst case time complexity of \( \mathcal{O}(n) \).}
+    \begin{algorithmic}
+        \If{ left[x] = NULL or x = NULL }
+            \State\Return{ x }
+        \EndIf{}
+        \State\Return{ \Call{TreeMin}{left[x]} }
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \floatname{algorithm}{Biary Search Tree}
+    \caption{\textsc{TreeSucc(x)}: If the right subtree is not empty, return the minimum of the right subtree. Otherwise, go up the tree until you reach a node that is the left child of its parent. The time complexity is \( \mathcal{O}(\log n) \) with a worst case time complexity of \( \mathcal{O}(n) \).}
+    \begin{algorithmic}
+        \If{ right[x] \( \neq \) NULL }
+            \State\Return{ \Call{TreeMin}{right[x]} }
+        \EndIf{}
+        \State{ \( y \gets p[x] \)}
+        \While{ y \( \neq \) NULL and x = right[y] }
+            \State{ \( x \gets y \) }
+            \State{ \( y \gets p[y] \) }
+        \EndWhile{}
+        \State\Return{ y }
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \floatname{algorithm}{Biary Search Tree}
+    \caption{\textsc{TreeInsert(x, z)}: Insert a node into the binary search tree. The time complexity is \( \mathcal{O}(\log n) \) with a worst case time complexity of \( \mathcal{O}(n) \). The idea is to traverse the tree until we reach a leaf node and then insert the new node there.}
+    \begin{algorithmic}
+        \State{ \( y \gets NULL \) }
+        \State{ \( x \gets root[T] \) }
+        \While{ x \( \neq \) NULL }
+            \State{ \( y \gets x \) }
+            \If{ key[z] < key[x] }
+                \State{ \( x \gets \) left[x]  }
+            \Else{}
+                \State{ \( x \gets \) right[x] }
+            \EndIf{}
+        \EndWhile{}
+        \State{ p[z] = y }
+        \If{ y = NULL }
+            \State{ root[T] = z }
+        \ElsIf{ key[z] < key[y] }
+            \State{ left[y] = z }
+        \Else{}
+            \State{ right[y] = z }
+        \EndIf{}
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \floatname{algorithm}{Biary Search Tree}
+    \caption{\textsc{Delete(x, z)}: Delete a node from the binary search tree. The time complexity is \( \mathcal{O}(\log n) \) with a worst case time complexity of \( \mathcal{O}(n) \). If the node has no children or only one child, we can simply remove the node. If the node has two children, we can replace it with its successor.}
+    \begin{algorithmic}
+        \If{ left[z] = NULL or right[z] = NULL }
+            \State{ \( y \gets z \) }
+        \Else{}
+            \State{ \( y \gets \) \Call{TreeSucc}{z} }
+        \EndIf{}
+        \If{ left[y] \( \neq \) NULL }
+            \State{ \( x \gets \) left[y] }
+        \Else{}
+            \State{ \( x \gets \) right[y] }
+        \EndIf{}
+        \If{ x \( \neq \) NULL }
+            \State{ p[x] = p[y] }
+        \EndIf{}
+        \If{ p[y] = NULL }
+            \State{ root[T] = x }
+        \ElsIf{ y = left[p[y]] }
+            \State{ left[p[y]] = x }
+        \Else{}
+            \State{ right[p[y]] = x }
+        \EndIf{}
+        \If{ y \( \neq \) z }
+            \State{ key[z] = key[y] }
+        \EndIf{}
+        \State\Return{ y }
+    \end{algorithmic}
+\end{algorithm}
+
+%MARK: Red-Black Trees
+\subsection{Red-Black Trees}
+A red-black tree is a binary search tree with the following properties:
+\begin{itemize}
+    \item The height is at most \( \mathcal{O}(\log n) \)
+    \item The black-height of a node is the number of black nodes on the path from the node to the leaves, not counting the node itself. The black-height of the tree is the black-height of the root.
+    \item A red-black tree of black-height \( h \) has at least \( 2^h - 1 \) internal nodes. 
+    \item The root is black
+    \item Every leaf is black
+    \item For each node \( x \), all simple paths from \( x \) to descendant leaves have the same number of black nodes
+    \item Every red node has two black children
+\end{itemize}
+
+\paragraph{Insertion}
+
+\begin{itemize}
+    \item Insert the node \( z \) as in a binary search tree
+    \item Color the node red
+    \item Fix the tree by rotating and recoloring the nodes
+    \item Case I: Red uncle
+        \begin{itemize}
+            \item Recolor parent \( p[z] \) and uncle \( u[z] \) to black
+            \item Recolor grandparent \( g[z] \) to red (unless it's root)
+            \item Move \( z \) pointer to grandparent and repeat if needed
+            \item This case preserves black height but may propagate red violation up
+        \end{itemize}
+    \item Case II: Black uncle and \( z \) is left child:
+        \begin{itemize}
+            \item Recolor parent \( p[z] \) to black
+            \item Recolor grandparent \( g[z] \) to red
+            \item Right rotate around grandparent
+            \item This case terminates - no further violations possible
+        \end{itemize}
+    \item Case III: Black uncle and \( z \) is right child:
+        \begin{itemize}
+            \item Left rotate around parent \( p[z] \)
+            \item Convert to Case II by making \( z \) point to old parent
+            \item Apply Case II fix
+            \item This requires two rotations but also terminates
+        \end{itemize}
+\end{itemize}
+
+I'll help create comprehensive notes for red-black tree deletion:
+
+\begin{itemize}
+    \item Delete node \(y\) as in a binary search tree using transplant
+    \item If \(y\) is black, fixing is needed since black height was reduced
+    \item Let \(x\) be the node that moved into \(y\)'s position
+    \item Extra black is given to \(x\) (making it "double black" if already black)
+    \item Cases to fix double black:
+    \item Case I: Red sibling \(w\):
+        \begin{itemize}
+            \item Color sibling \(w\) black
+            \item Color parent \(p[x]\) red
+            \item Left rotate at parent \(p[x]\)
+            \item New sibling is now black - converts to cases 2, 3, or 4
+        \end{itemize}
+    \item Case II: Black sibling \(w\) with both black children:
+        \begin{itemize}
+            \item Color sibling \(w\) red
+            \item Move double black up to parent \(p[x]\)
+            \item Repeat if needed (may propagate to root)
+            \item If reached red node, just color it black and done
+        \end{itemize}
+    \item Case III: Black sibling \(w\), red left child, black right child:
+        \begin{itemize}
+            \item Color \(w\)'s left child black
+            \item Color \(w\) red
+            \item Right rotate at \(w\)
+            \item Converts to Case IV
+        \end{itemize}
+    \item Case IV: Black sibling \(w\) with red right child:
+        \begin{itemize}
+            \item Color \(w\) same as parent \(p[x]\)
+            \item Color parent \(p[x]\) black
+            \item Color \(w\)'s right child black
+            \item Left rotate at parent \(p[x]\)
+            \item Remove extra black from \(x\)
+            \item This case terminates - all properties restored
+        \end{itemize}
+\end{itemize}
+
+%MARK: Splay Trees
+\subsection{Splay Trees}
+
+A splay tree is a self-adjusting binary search tree with the property that recently accessed elements are quick to access again. It performs basic operations such as insertion, look-up, and deletion in \( \mathcal{O}(\log n) \) amortized time. The idea is to move the accessed node to the root of the tree by performing a sequence of rotations.
+
+%splay algorithm
+\begin{algorithm}
+    \floatname{algorithm}{Splay Tree}
+    \caption{\textsc{Splay(x)}: Splay the node \( x \) to the root of the tree. The time complexity is \( \mathcal{O}(\log n) \) amortized.}
+    \begin{algorithmic}
+        % Case 1: x is the root
+        % Case 2 (zig): x is the child of the root
+        % Case 3 (zig-zig): x and x's parent are both left or right children
+        % Case 4 (zig-zag): x is a left child and x's parent is a right child or vice versa
+        \While{ x \( \neq \) root }
+            \If{ parent(x) = root }
+                \State{ \Call{Zig}{x} right rotation (or left rotation) }
+            \ElsIf{ x is left child and parent(x) is left child or x is right child and parent(x) is right child }
+                \State{ \Call{ZigZig}{x} right rotation grandparent, right rotation parent (or left-left rotation) }
+            \Else{}
+                \State{ \Call{ZigZag}{x} left rotation parent, right rotation grandparent (or right-left rotation) }
+            \EndIf{}
+        \EndWhile{}
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{itemize}
+    \item For each operation (insert, search, delete), splay the node to the root of the tree
+    \item If the node is not found, splay the last accessed node
+    \item Delete operation:
+        \begin{itemize}
+            \item Search for x
+            \item Splay(x)
+            \item Search for predecessor y of x. By definition this is the largest element in the left subtree of x
+            \item splay (y) on left subtree of x. By definition this will result in a left subtree with no right child
+            \item Join the right subtree of x as the child of y
+        \end{itemize}
+    \item Insert operation:
+        \begin{itemize}
+            \item Search for x
+            \item y is the last accessed node, which is either the predecessor or successor of x
+            \item splay(y)
+            \item insert x as the root of the tree. If y is the predecessor of x it becomes the left child, otherwise it becomes the right child.
+        \end{itemize}
+    \item Search operation:
+        \begin{itemize}
+            \item Search for x
+            \item splay(x), or the last accessed node if x is not found
+        \end{itemize}
+\end{itemize}
+
+%MARK: Skip lists
+
+%MARK: van Emde Boas Trees
+
+%MARK: Hashing
+
+%MARK: Cuckoo Hashing

@@ -1,10 +1,22 @@
 \relax 
-\@writefile{toc}{\contentsline {section}{\numberline {1}General Stuff}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1}General Theory}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Asymptotic Notation}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Power Series}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Recursion}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Master Theorem}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Proof by Induction for Recursion}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Proof by Induction for Recursion}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Linear Homogeneous Recurrence Relations}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Inhomogeneous Recurrence Relations}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Generating Functions}{3}{}\protected@file@percent }
-\gdef \@abspage@last{3}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Data Structures}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Binary Search Tree}{4}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces \textsc  {Tree-Search(x, k)}: Go left if the key is less than the current node, go right if the key is greater than the current node. The average case time complexity is \( \mathcal  {O}(\log n) \) and the worst case time complexity is \( \mathcal  {O}(n) \).}}{4}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces \textsc  {TreeMin(x)}: Go left until you reach the leftmost node. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \).}}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Red-Black Trees}{4}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces \textsc  {TreeSucc(x)}: If the right subtree is not empty, return the minimum of the right subtree. Otherwise, go up the tree until you reach a node that is the left child of its parent. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \).}}{5}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces \textsc  {TreeInsert(x, z)}: Insert a node into the binary search tree. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \). The idea is to traverse the tree until we reach a leaf node and then insert the new node there.}}{5}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces \textsc  {Delete(x, z)}: Delete a node from the binary search tree. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \). If the node has no children or only one child, we can simply remove the node. If the node has two children, we can replace it with its successor.}}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Insertion}{6}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces \textsc  {Splay(x)}: Splay the node \( x \) to the root of the tree. The time complexity is \( \mathcal  {O}(\log n) \) amortized.}}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Splay Trees}{8}{}\protected@file@percent }
+\gdef \@abspage@last{8}
