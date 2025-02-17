@@ -8,7 +8,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Linear Homogeneous Recurrence Relations}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Inhomogeneous Recurrence Relations}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Generating Functions}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Data Structures}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Tree Structures}{4}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Binary Search Tree}{4}{}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces \textsc  {Tree-Search(x, k)}: Go left if the key is less than the current node, go right if the key is greater than the current node. The average case time complexity is \( \mathcal  {O}(\log n) \) and the worst case time complexity is \( \mathcal  {O}(n) \).}}{4}{}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces \textsc  {TreeMin(x)}: Go left until you reach the leftmost node. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \).}}{4}{}\protected@file@percent }
@@ -16,7 +16,25 @@
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces \textsc  {TreeSucc(x)}: If the right subtree is not empty, return the minimum of the right subtree. Otherwise, go up the tree until you reach a node that is the left child of its parent. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \).}}{5}{}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces \textsc  {TreeInsert(x, z)}: Insert a node into the binary search tree. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \). The idea is to traverse the tree until we reach a leaf node and then insert the new node there.}}{5}{}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces \textsc  {Delete(x, z)}: Delete a node from the binary search tree. The time complexity is \( \mathcal  {O}(\log n) \) with a worst case time complexity of \( \mathcal  {O}(n) \). If the node has no children or only one child, we can simply remove the node. If the node has two children, we can replace it with its successor.}}{6}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Insertion}{6}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces \textsc  {Splay(x)}: Splay the node \( x \) to the root of the tree. The time complexity is \( \mathcal  {O}(\log n) \) amortized.}}{8}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Splay Trees}{8}{}\protected@file@percent }
-\gdef \@abspage@last{8}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Splay Trees}{7}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces \textsc  {Splay(x)}: Splay the node \( x \) to the root of the tree. The time complexity is \( \mathcal  {O}(\log n) \) amortized.}}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Hashing}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Hash Functions}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Open Addressing}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Cuckoo Hashing}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Heaps}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Priority Queue}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Dijkstra's Algorithm}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Prim's Algorithm}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Binary-Heap}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Binomial Heap}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Fibonacci Heap}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Insert}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Delete-Min}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Delete}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Decrease-Key}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Flows and Cuts}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Minimum Cut}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Maximum Flow}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ford-Fulkerson Algorithm}{11}{}\protected@file@percent }
+\gdef \@abspage@last{11}

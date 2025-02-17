@@ -1,0 +1,144 @@
+\section{Heaps}
+
+%MARK: prio-q
+\subsection{Priority Queue}
+
+\paragraph{Dijkstra's Algorithm} (Single-Source Shortest Path)
+The algorithm finds the shortest path from a source vertex to all other vertices in a weighted graph. For a vertex set \( V \) and edge set \( E \):
+
+
+\begin{align*}
+& \text{Initialize:} \\
+& \quad d[s] = 0 \text{ (source distance)} \\
+& \quad d[v] = \infty \text{ (all other vertices)} \\
+& \quad Q = V \text{ (priority queue)} \\
+\\
+& \text{While } Q \neq \emptyset: \\
+& \quad u = \text{extract\_min}(Q) \\
+& \quad \text{For each neighbor } v \text{ of } u: \\
+& \quad \quad \text{If } d[v] > d[u] + w(u,v): \\
+& \quad \quad \quad d[v] = d[u] + w(u,v)
+\end{align*}
+    
+
+
+Time complexity: \( O((|V| + |E|)\log|V|) \) with binary heap
+
+\paragraph{Prim's Algorithm} (Minimum Spanning Tree)
+Builds a minimum spanning tree by selecting edges with minimum weight that connect a vertex in the tree to a vertex outside the tree. For a graph \( G=(V,E) \):
+
+
+\begin{align*}
+& \text{Initialize:} \\
+& \quad \text{key}[s] = 0 \text{ (source vertex)} \\
+& \quad \text{key}[v] = \infty \text{ (all other vertices)} \\
+& \quad \text{parent}[v] = \text{NIL} \text{ (for all vertices)} \\
+\\
+& \text{While priority queue } Q \neq \emptyset: \\
+& \quad u = \text{extract\_min}(Q) \\
+& \quad \text{For each } v \in \text{Adj}[u]: \\
+& \quad \quad \text{If } v \in Q \text{ and } w(u,v) < \text{key}[v]: \\
+& \quad \quad \quad \text{parent}[v] = u \\
+& \quad \quad \quad \text{key}[v] = w(u,v)
+\end{align*}
+
+
+Time complexity: \( O(|E|\log|V|) \) with binary heap
+
+Key differences:
+1. Dijkstra's maintains distances from source: \( d[v] \)
+2. Prim's maintains weights of edges: \( \text{key}[v] \)
+3. Dijkstra's finds shortest paths from a source
+4. Prim's builds a minimum spanning tree
+
+The MST weight is given by:
+\begin{equation*}
+    MST_{weight} = \sum_{v \in V \setminus \{s\}} w(v, \text{parent}[v])
+\end{equation*}
+
+% MARK: Binary Heaps 
+\subsection{Binary-Heap}
+Complete binary tree, except for the last level with the property that the parent node is always smaller than their children.
+\begin{itemize}
+    \item By definition the minimum element is the root
+    \item The maximum element is one of the leaves
+    \item Insertion of \( x \):
+        \begin{itemize}
+            \item Insert \( x \) as leftmost leave element.
+            \item Exchange \( x \) with parent untill the min-property is restored
+        \end{itemize}
+    \item Deletion of \( x \):
+        \begin{itemize}
+            \item Replace \( x \) with the rightmost leave element \( y \)
+            \item Fix min property of \( y \)
+        \end{itemize}
+\end{itemize}
+
+Let \( A[1, \cdots,  n] \) be an array representing a binary heap. Then:
+\begin{itemize}
+    \item The parent of element \( i \) can be found in \( A \left[ \left\lfloor \frac{i}{2}  \right\rfloor \right] \)
+    \item The left child of element \( i \) can be found at in \( A \left[ 2i + 1 \right] \)
+    \item The right child of element \( i \) can be found at in \( A \left[ 2i + 2 \right] \)
+\end{itemize}
+
+%MARK: Binomial Heap
+\subsection{Binomial Heap}
+
+
+
+%MARK: Fibonacci Heap
+\subsection{Fibonacci Heap}
+\begin{itemize}
+    \item collection of min-heap trees
+    \item root level has a doubly linked circular list
+    \item root level has a min pointer to the minimum element. Since each tree is a min-heap, the min pointer is the minimum of all trees
+    \item We keep track of wether the nodes are marked or not
+\end{itemize}
+
+\paragraph{Insert}
+\begin{itemize}
+    \item Insert a new node with key \( k \) into the root list
+    \item If the new node is smaller than the current min, update the min pointer
+\end{itemize}
+
+\paragraph{Delete-Min}
+\begin{itemize}
+    \item Remove the minimum element (pointed to by min pointer)
+    \item Add all its children to the root list
+    \item Consolidate the root list:
+        \begin{itemize}
+            \item Combine trees of the same degree until no two trees have the same degree
+            \item Create a temporary array indexed by tree degree
+            \item For each tree in root list, combine with existing tree of same degree if any
+            \item When combining, make the larger root a child of the smaller root
+        \end{itemize}
+    \item Update the min pointer by finding minimum among remaining roots
+\end{itemize}
+
+\paragraph{Delete}
+\begin{itemize}
+    \item Decrease the key to negative infinity
+    \item Cut the node from its parent and add it to the root list
+    \item If parent is not root, mark it
+    \item If parent was already marked:
+        \begin{itemize}
+            \item Cut parent from its parent and add to root list
+            \item Continue cascading cuts up the tree until reaching either:
+                \begin{itemize}
+                    \item An unmarked node (mark it and stop)
+                    \item A root (stop)
+                \end{itemize}
+        \end{itemize}
+    \item Perform Delete-Min operation to remove the node with negative infinity key
+\end{itemize}
+
+\paragraph{Decrease-Key}
+\begin{itemize}
+    \item Decrease the key of the node to the new value
+    \item If new key is smaller than parent's key:
+        \begin{itemize}
+            \item Cut the node from its parent and add to root list
+            \item Perform cascading cuts on the parent as in Delete operation
+        \end{itemize}
+    \item If new key is smaller than current minimum, update min pointer
+\end{itemize}

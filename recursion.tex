@@ -10,7 +10,7 @@ Let \( a \geq 1 \), \( b > 1 \), \( \epsilon > 0 \) then
 then:
 \begin{itemize}
     \item  If \( f(n) = \mathcal{O} \left( n^{\log_b (a) \bm{ - \epsilon}} \right) \) then \( T(n) = \Theta \left( n^{\log_b a} \right) \)
-    \item If \( f(n) = \Theta \left( n^{\log_b (a) \cdot \bm{\log^k n}} \right) \) then \( T(n) = \Theta \left( n^{\log_b a} \log^{k+1} n \right) \)
+    \item If \( f(n) = \Theta \left( n^{\log_b (a)} \bm{\left(\log n \right)^k} \right) \) then \( T(n) = \Theta \left( n^{\log_b a} \log^{k+1} n \right) \) 
     \item If \( f(n) = \Omega \left( n^{\log_b (a) 
  \bm{+ \epsilon}} \right) \) and \( a f \left( \frac{n}{b} \right) \leq c f(n) \) for some \( c < 1 \) and sufficiently large \( n \) then \( T(n) = \Theta \left( f \left(n \right) \right) \)
 \end{itemize}

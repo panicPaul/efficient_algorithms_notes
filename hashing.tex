@@ -1,0 +1,45 @@
+\section{Hashing}
+
+\subsection{Hash Functions}
+\begin{itemize}
+    \item hash function: \( h: U \rightarrow \{0, 1, \ldots, n-1\} \)
+    \item Universe \( U \) of keys and a table \( T \) of size \( n \)
+    \item The probability of a collision in a uniform hash function when hashing \( m \) keys into a table of size \( n \) is \( 1 - e^{- \frac{m(m-1)}{2n}}\)
+    \item There are two types of dealing with collisions:
+        \begin{itemize}
+            \item open addressing: when a collision occurs, the algorithm tries to find another slot in the table
+            \item chaining: when a collision occurs, the algorithm stores the key in a linked list
+        \end{itemize}
+    \item A class of hash functions \( \mathcal{H} =  \{ h: U \rightarrow T \} \) is called universal if
+        \begin{itemize}
+            \item \( \forall_{x \neq y} x, y \in U : \left| \left\{ h \in \mathcal{H}: h(x) = h(y) \right\}\right| \leq \frac{|\mathcal{H}|}{|T|}   \)
+            \item i.e. the probability of a collision is at most \( \frac{1}{n} \)
+        \end{itemize}
+        
+\end{itemize}
+
+\subsection{Open Addressing}
+We add a function \( f \) to the hash function \( h \) to get the probing sequence \( h(k, i) \) where \( i \) is the number of probes.
+\begin{itemize}
+    \item Linear Probing: \( h(k, i) = (h'(k) + i) \mod n \) 
+    \item Quadratic Probing: \( h(k, i) = (h'(k) + c_1i + c_2i^2) \mod n \)
+    \item Double Hashing: \( h(k, i) = (h_1(k) + i \cdot h_2(k)) \mod n \)
+\end{itemize}
+
+\subsection{Cuckoo Hashing}
+Worst case guarantee of \( O(1) \) for lookups, insertions and deletions. 
+Every key is guaranteed to be either in table one or table two as a direct hit.
+
+Insertion steps:
+\begin{itemize}
+    \item Idea is to eject the residing key, which in turn rejects the key in the alternate table until we find a nill position
+    \item If \( T_1 \left[ h_1 \left(x \right) \right] = x \) or \( T_2 \left[ h_2 \left(x \right) \right] = x \) then return
+    \item Otherwise do for a maximum of \( n \) steps:
+        \begin{itemize}
+            \item exchange \( x \) and \( T_1 \left[ h_1 \left(x \right) \right] \). If \( x = null \) return
+            \item exchange \( x \) and \( T_2 \left[ h_2 \left(x \right) \right] \). If \( x = null \) return
+        \end{itemize}
+    \item If it does not terminate in \( n \) steps, change the hash function and rehash everything
+    \item Try inserting with the new hash tables
+\end{itemize}
+

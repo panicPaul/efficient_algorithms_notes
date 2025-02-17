@@ -1,4 +1,4 @@
-\section{Data Structures}
+\section{Tree Structures}
 %MARK: Binary Search Tree
 \subsection{Binary Search Tree}
 A binary search tree is a binary tree where each node has a key and the keys are ordered such that for each node, all keys in the left subtree are less than the key of the node and all keys in the right subtree are greater than the key of the node. 
@@ -114,74 +114,44 @@ A red-black tree is a binary search tree with the following properties:
     \item Every red node has two black children
 \end{itemize}
 
-\paragraph{Insertion}
-
 \begin{itemize}
-    \item Insert the node \( z \) as in a binary search tree
-    \item Color the node red
-    \item Fix the tree by rotating and recoloring the nodes
-    \item Case I: Red uncle
+    \item Properties:
         \begin{itemize}
-            \item Recolor parent \( p[z] \) and uncle \( u[z] \) to black
-            \item Recolor grandparent \( g[z] \) to red (unless it's root)
-            \item Move \( z \) pointer to grandparent and repeat if needed
-            \item This case preserves black height but may propagate red violation up
+            \item Every node is either red or black
+            \item The root is always black
+            \item Every leaf (NIL) is black
+            \item If a node is red, then both its children are black (no consecutive red nodes)
+            \item For each node, all simple paths from the node to descendant leaves contain the same number of black nodes (black height)
         \end{itemize}
-    \item Case II: Black uncle and \( z \) is left child:
+    \item Insert operation:
         \begin{itemize}
-            \item Recolor parent \( p[z] \) to black
-            \item Recolor grandparent \( g[z] \) to red
-            \item Right rotate around grandparent
-            \item This case terminates - no further violations possible
+            \item Insert the node as in a regular BST
+            \item Color the new node red
+            \item Fix violations of Red-Black properties:
+                \begin{itemize}
+                    \item Case 1: Uncle is red - Recolor parent, uncle, and grandparent
+                    \item Case 2: Uncle is black (triangle) - Rotate parent
+                    \item Case 3: Uncle is black (line) - Rotate grandparent and recolor
+                \end{itemize}
+            \item Ensure root remains black
         \end{itemize}
-    \item Case III: Black uncle and \( z \) is right child:
+    \item Delete operation:
         \begin{itemize}
-            \item Left rotate around parent \( p[z] \)
-            \item Convert to Case II by making \( z \) point to old parent
-            \item Apply Case II fix
-            \item This requires two rotations but also terminates
+            \item Perform standard BST deletion
+            \item If deleted node is black, fix double-black violation:
+                \begin{itemize}
+                    \item Case 1: Sibling is red - Recolor and rotate
+                    \item Case 2: Sibling is black with black children - Recolor sibling
+                    \item Case 3: Sibling is black with near child red - Rotate sibling's child and recolor
+                    \item Case 4: Sibling is black with far child red - Rotate sibling and recolor
+                \end{itemize}
         \end{itemize}
-\end{itemize}
-
-I'll help create comprehensive notes for red-black tree deletion:
-
-\begin{itemize}
-    \item Delete node \(y\) as in a binary search tree using transplant
-    \item If \(y\) is black, fixing is needed since black height was reduced
-    \item Let \(x\) be the node that moved into \(y\)'s position
-    \item Extra black is given to \(x\) (making it "double black" if already black)
-    \item Cases to fix double black:
-    \item Case I: Red sibling \(w\):
+    \item Search operation:
         \begin{itemize}
-            \item Color sibling \(w\) black
-            \item Color parent \(p[x]\) red
-            \item Left rotate at parent \(p[x]\)
-            \item New sibling is now black - converts to cases 2, 3, or 4
+            \item Standard BST search, no rebalancing needed
+            \item Time complexity is \( \mathcal{O} \left( \log n \right) \) due to guaranteed height balance
         \end{itemize}
-    \item Case II: Black sibling \(w\) with both black children:
-        \begin{itemize}
-            \item Color sibling \(w\) red
-            \item Move double black up to parent \(p[x]\)
-            \item Repeat if needed (may propagate to root)
-            \item If reached red node, just color it black and done
-        \end{itemize}
-    \item Case III: Black sibling \(w\), red left child, black right child:
-        \begin{itemize}
-            \item Color \(w\)'s left child black
-            \item Color \(w\) red
-            \item Right rotate at \(w\)
-            \item Converts to Case IV
-        \end{itemize}
-    \item Case IV: Black sibling \(w\) with red right child:
-        \begin{itemize}
-            \item Color \(w\) same as parent \(p[x]\)
-            \item Color parent \(p[x]\) black
-            \item Color \(w\)'s right child black
-            \item Left rotate at parent \(p[x]\)
-            \item Remove extra black from \(x\)
-            \item This case terminates - all properties restored
-        \end{itemize}
-\end{itemize}
+    \end{itemize}
 
 %MARK: Splay Trees
 \subsection{Splay Trees}
@@ -235,6 +205,7 @@ A splay tree is a self-adjusting binary search tree with the property that recen
 \end{itemize}
 
 %MARK: Skip lists
+
 
 %MARK: van Emde Boas Trees
 
